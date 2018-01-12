@@ -20,20 +20,47 @@
 </template>
 
 <script>
+
+const baseUrl = 'https://gateway.marvel.com:443/v1/public'
+const apiKey = '1bf4c8e588d3f4faf897acf7b5ade1d5'
+
+const listarPersonagens = () => {
+  axios.get(`${baseUrl}/characters`, {
+      params: {
+        apikey: apiKey
+      }
+    })
+    .then(function (response) {
+      return response.data.map((char) => {
+        return {
+          name: char.name,
+          descricao: char.description,
+          imagem: char.thumbnail.path
+        }
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+const listarQuadrinhos = () => {
+  
+}
+
+const quadrinhoPorNome = (nome) => {
+  
+}
+
 export default {
   name: "tabela-personagens",
   data() {
     return {
-      personagens: [
-        { nome: "Demolidor", descricao: "Cego" },
-        { nome: "Miss Marvel", descricao: "Voa" },
-        { nome: "Viuva Negra", descricao: "Espia" },
-        { nome: "Hulk", descricao: "Verde" },
-        { nome: "Homem de Ferro", descricao: "Rico" }
-      ]
-    };
+     personagens : listarPersonagens()
+    }
   }
-};
+  
+}
 </script>
 
 <style>
